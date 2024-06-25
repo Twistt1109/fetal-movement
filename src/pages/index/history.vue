@@ -1,5 +1,10 @@
 <template>
   <div class="record-page">
+    <!-- 提示框 -->
+    <view class="info-box">
+      <text class="tips">记录均缓存在本地，切勿清理app缓存!!!否则数据丢失。</text>
+    </view>
+
     <ul class="day-list">
       <li
         v-for="(dayRecords, day) in groupedRecords"
@@ -109,6 +114,10 @@ export default {
   background-color: #f8f9fa;
   padding: 30px;
   border-radius: 5px;
+}
+
+.tips {
+  color: red;
 }
 
 .day-list {

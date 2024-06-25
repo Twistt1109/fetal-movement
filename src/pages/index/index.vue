@@ -11,7 +11,7 @@
           @click="recordFetalMovement"
         >
           <span v-if="!isCounting">{{
-            isRecording ? "记录中..." : "动啦!!!"
+            isRecording ? "记录中..." : "崽崽动啦!!!"
           }}</span>
           <span v-if="isCounting" class="countdown">{{ countdown }}</span>
         </button>
