@@ -13,7 +13,7 @@
             :key="hourMinute"
             class="hourly-item"
           >
-            <span class="time-label">{{ hourMinute }}: 往后1小时内</span>
+            <span class="time-label">{{ hourMinute }}: 起1小时内</span>
             <span class="count-value">{{ hourlyData.count }} 次</span>
           </li>
         </ul>
