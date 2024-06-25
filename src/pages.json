@@ -11,28 +11,39 @@
 			"style": {
 				"navigationBarTitleText": "历史记录"
 			}
+		},
+		{
+			"path": "pages/index/manual-record",
+			"name": "manual-record",
+			"style": {
+				"navigationBarTitleText": "录入"
+			}
 		}
 	],
 	"tabBar": {
-    "color": "#666",
-	"fontSize": "30rpx",
-    "selectedColor": "#347FFF",
-    "backgroundColor": "#ffffff",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "首页"
-        // "iconPath": "static/tabBar/home.png",
-        // "selectedIconPath": "static/tabBar/home-active.png"
-      },
-      {
-        "pagePath": "pages/index/history",
-        "text": "记录"
-        // "iconPath": "static/tabBar/study.png",
-        // "selectedIconPath": "static/tabBar/study-active.png"
-      }
-    ]
-  },
+		"color": "#666",
+		"fontSize": "16px",
+		"selectedColor": "#347FFF",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页"
+				// "iconPath": "static/tabBar/home.png",
+				// "selectedIconPath": "static/tabBar/home-active.png"
+			},
+			{
+				"pagePath": "pages/index/history",
+				"text": "历史"
+				// "iconPath": "static/tabBar/study.png",
+				// "selectedIconPath": "static/tabBar/study-active.png"
+			},
+			{
+				"pagePath": "pages/index/manual-record",
+				"text": "录入"
+			}
+		]
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

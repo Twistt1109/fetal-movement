@@ -2,12 +2,17 @@
   <div class="app-container">
     <div class="content-wrap">
       <div class="home">
-        <button 
-          :disabled="isButtonDisabled" 
-          @click="recordFetalMovement" 
-          class="fetal-button"
+        <button
+          :class="{
+            'fetal-button': true,
+            'pulse-animation': !isButtonDisabled,
+          }"
+          :disabled="isButtonDisabled"
+          @click="recordFetalMovement"
         >
-          <span v-if="!isCounting">{{ isRecording ? '记录中...' : '动啦!!!' }}</span>
+          <span v-if="!isCounting">{{
+            isRecording ? "记录中..." : "动啦!!!"
+          }}</span>
           <span v-if="isCounting" class="countdown">{{ countdown }}</span>
         </button>
       </div>
@@ -17,11 +22,11 @@
 
 <script>
 import { ref, onMounted } from "vue";
-import { storeFetalMovement } from '@/utils/storeFetalMovement';
+import { storeFetalMovement } from "@/utils/storeFetalMovement";
 
 export default {
   setup() {
-    const time = 10;  // 倒计时时间
+    const time = 10; // 倒计时时间
 
     const isButtonDisabled = ref(false);
     const isRecording = ref(false);
@@ -38,7 +43,10 @@ export default {
       // 获取当前时间，并按天和小时+分钟格式化
       const now = new Date();
       const dayKey = now.toISOString().split("T")[0];
-      const timeKey = `${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}`;
+      const timeKey = `${now.getHours().toString().padStart(2, "0")}${now
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}`;
 
       // 存储逻辑
       await storeFetalMovement(dayKey, timeKey, 1); // 假设value为次数，每次点击加1
@@ -46,7 +54,7 @@ export default {
       // 显示成功消息
       uni.showToast({
         title: "记录成功",
-        icon: 'none',
+        icon: "none",
       });
 
       isCounting.value = true;
@@ -71,7 +79,13 @@ export default {
       // 初始化或检查缓存等操作
     });
 
-    return { recordFetalMovement, isButtonDisabled, isRecording, isCounting, countdown };
+    return {
+      recordFetalMovement,
+      isButtonDisabled,
+      isRecording,
+      isCounting,
+      countdown,
+    };
   },
 };
 </script>
@@ -102,17 +116,33 @@ export default {
   height: 100%; /* 充满content-wrap的高度 */
 }
 
+.pulse-animation {
+  animation: pulse 2s ease-in-out infinite;
+}
+
 .fetal-button {
   /* 保持之前样式 */
   width: 500rpx;
   height: 500rpx;
   border-radius: 50%;
-  background-color: #4caf50;
+  background-color: #98fb98;
   color: white;
   font-size: 64rpx;
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: pulse 1s ease-in-out infinite; /* 添加动画属性： 秒数 */
+}
+
+/* 名为 pulse 的关键帧动画， 跳动幅度 */
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
 }
 </style>

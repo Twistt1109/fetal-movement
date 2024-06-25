@@ -3,7 +3,7 @@ export function loadFetalMovements() {
     let allRecords = {};
 
     // 遍历所有可能的日期键（这里简化处理，未限制日期范围）
-    for (let i = 0; i <= 30; i++) { // 假定查看最近30天的记录
+    for (let i = 0; i <= 120; i++) { // 假定查看最近120天的记录
         const dateKey = getDateString(new Date(Date.now() - i * 24 * 60 * 60 * 1000));
         const recordsForDay = uni.getStorageSync(dateKey);
         if (recordsForDay) {

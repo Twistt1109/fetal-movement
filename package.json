@@ -55,6 +55,7 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-alpha-4010520240507001",
     "@dcloudio/uni-mp-xhs": "3.0.0-alpha-4010520240507001",
     "@dcloudio/uni-quickapp-webview": "3.0.0-alpha-4010520240507001",
+    "@dcloudio/uni-ui": "^1.5.5",
     "vue": "3.4.21",
     "vue-i18n": "9.13.1"
   },
@@ -65,6 +66,7 @@
     "@dcloudio/uni-stacktracey": "3.0.0-alpha-4010520240507001",
     "@dcloudio/vite-plugin-uni": "3.0.0-alpha-4010520240507001",
     "@vue/runtime-core": "3.4.30",
+    "sass": "^1.77.6",
     "vite": "5.2.8"
   },
   "description": "胎动记录",
