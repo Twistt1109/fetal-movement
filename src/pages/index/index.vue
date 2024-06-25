@@ -16,9 +16,8 @@
 </template>
 
 <script>
-import { ref, onMounted, nextTick } from "vue";
+import { ref, onMounted } from "vue";
 import { storeFetalMovement } from '@/utils/storeFetalMovement';
-import { useToast } from 'vue-toastification'; // 引入useToast
 
 export default {
   setup() {
@@ -45,9 +44,11 @@ export default {
       await storeFetalMovement(dayKey, timeKey, 1); // 假设value为次数，每次点击加1
 
       // 显示成功消息
-      const toast = useToast();
-      toast.success('记录成功');
-      
+      uni.showToast({
+        title: "记录成功",
+        icon: 'none',
+      });
+
       isCounting.value = true;
       startCountdown(); // 开始倒计时
     };

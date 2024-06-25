@@ -4,8 +4,8 @@
 1. 更新依赖到指定版本
 `npx @dcloudio/uvm@latest`
 
-2. 初始化
-`npm init`
+2. 安装包
+`npm install`
 
 3. 启动
 `npm run dev:h5`
