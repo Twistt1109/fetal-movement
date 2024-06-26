@@ -101,15 +101,15 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 158rpx; /* 假设TabBar高度为50px */
+  bottom: 0; /* 假设TabBar高度为50px */
   display: flex;
   flex-direction: column;
+  background-color: var(--app-theme-color);
 }
 
 .content-wrap {
   /* 内容包裹层，用于flex布局和内容限制 */
   flex: 1;
-  overflow-y: auto; /* 允许这个层内部滚动，如果内容超出 */
 }
 
 .home {

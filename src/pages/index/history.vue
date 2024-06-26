@@ -28,7 +28,6 @@
 </template>
     
   <script>
-import { computed } from "vue";
 import { loadFetalMovements } from "@/utils/loadFetalMovements";
 
 export default {
@@ -87,8 +86,6 @@ export default {
           {}
         );
       }
-      console.log("----------result------------");
-      console.log(result);
 
       this.groupedRecords = result;
     },
