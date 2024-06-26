@@ -51,6 +51,14 @@
       <button type="primary" @click="saveRecord">保存记录</button>
     </view>
   </view>
+
+  <!-- 作者信息 -->
+  <view class="powered-by-section">
+    <view class="powered-by-container" @click.stop>
+      Powered by
+      <view class="twist" @click="twistClicked">Twist</view>
+    </view>
+  </view>
 </template>
 <script>
 import { ref } from "vue";
@@ -84,6 +92,12 @@ export default {
       storeFetalMovement(dayKey, timeKey, movementCount.value);
     };
 
+    const twistClicked = () => {
+      uni.navigateTo({
+        url: "/pages/index/webview",
+      });
+    };
+
     return {
       dateValue,
       timeValue,
@@ -94,6 +108,7 @@ export default {
       handleTimeChange,
       handleSliderChange,
       saveRecord,
+      twistClicked,
     };
   },
 };
@@ -152,6 +167,22 @@ export default {
   display: flex;
   justify-content: center;
   margin-bottom: 40rpx;
+}
+
+.powered-by-container {
+  margin-top: 200rpx; /* 根据需要调整间距 */
+  display: flex; /* 使用Flex布局来确保元素在同一行显示 */
+  align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+  cursor: pointer; /* 当鼠标悬停时显示手形光标 */
+  font-size: 24rpx; /* 调整字体大小 */
+  color: #999; /* 调整字体颜色 */
+}
+
+.twist {
+  margin-left: 4px; /* 添加一些左边距以分隔文本 */
+  color: blue; /* 你可以自定义颜色 */
+  text-decoration: underline; /* 添加下划线以表示可点击 */
 }
 
 /* 对于小于600rpx的屏幕 */

@@ -18,6 +18,13 @@
 			"style": {
 				"navigationBarTitleText": "录入"
 			}
+		},
+		{
+			"path": "pages/index/webview",
+			"name": "webview",
+			"style": {
+				"navigationBarTitleText": "个人博客"
+			}
 		}
 	],
 	"tabBar": {
