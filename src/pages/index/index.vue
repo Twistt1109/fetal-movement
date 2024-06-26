@@ -91,6 +91,10 @@ export default {
 </script>
 
 <style scoped>
+.home {
+  background-color: var(--app-theme-color);
+}
+
 .app-container {
   /* 确保app-container充满整个屏幕但不滚动 */
   position: fixed;
@@ -125,7 +129,7 @@ export default {
   width: 500rpx;
   height: 500rpx;
   border-radius: 50%;
-  background-color: #98fb98;
+  background-color: #FFA07A;
   color: white;
   font-size: 64rpx;
   cursor: pointer;

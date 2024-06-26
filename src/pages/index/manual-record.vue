@@ -101,7 +101,6 @@ export default {
 
 <style scoped>
 .add-record-container {
-  background-color: #f8f8ff;
   padding: 50rpx;
   display: flex;
   flex-direction: column;
