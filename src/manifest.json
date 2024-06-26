@@ -26,9 +26,13 @@
                 "targetSdkVersion" : 30
             },
             /* ios打包配置 */
-            "ios" : {},
+            "ios" : {
+                "dSYMs" : false
+            },
             /* SDK配置 */
-            "sdkConfigs" : {},
+            "sdkConfigs" : {
+                "ad" : {}
+            },
             "icons" : {
                 "android" : {
                     "hdpi" : "unpackage/res/icons/72x72.png",
@@ -62,7 +66,7 @@
                 }
             },
             "splashscreen" : {
-                "useOriginalMsgbox" : true
+                "useOriginalMsgbox" : false
             }
         },
         "uniStatistics" : {
