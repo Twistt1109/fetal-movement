@@ -5,6 +5,8 @@
       <text class="tips">记录存在本地，切勿清理app缓存!!!否则数据丢失。</text>
     </view>
 
+    <button @click="exportToExcel">导出至Excel</button>
+
     <ul class="day-list">
       <li
         v-for="(dayRecords, day) in groupedRecords"
@@ -30,6 +32,7 @@
   <script>
 import { computed } from "vue";
 import { loadFetalMovements } from "@/utils/loadFetalMovements";
+import { utils } from 'xlsx';
 
 export default {
   data() {
@@ -100,6 +103,48 @@ export default {
       const minute = parseInt(hourMinute.substring(2), 10); // 取后两位作为分钟
       return `${hour}:${minute < 10 ? "0" : ""}${minute}`;
     },
+
+    prepareDataForExport() {
+    const data = [];
+    for (const day in this.groupedRecords) {
+      data.push(["日期:", day]);
+      for (const [hourMinute, count] of Object.entries(this.groupedRecords[day])) {
+        data.push([this.formatTime(hourMinute), "起1小时内", count + " 次"]);
+      }
+      data.push([]); // 添加一个空行以便于阅读
+    }
+    return data;
+  },
+
+  exportToExcel() {
+    const data = this.prepareDataForExport();
+    const worksheet = utils.aoa_to_sheet(data);
+    const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+    const excelBuffer = utils.book_new(workbook);
+    utils.book_append_sheet(workbook, worksheet, 'SheetJS');
+    const excelBinary = utils.write(workbook, { bookType: 'xlsx', type: 'binary' });
+
+    this.saveAsExcelFile(excelBinary, 'fetal_movements');
+  },
+
+  saveAsExcelFile(binary, fileName) {
+    const link = document.createElement('a');
+    const blob = new Blob([this.s2ab(binary)], { type: 'application/octet-stream' });
+    const url = window.URL.createObjectURL(blob);
+    link.href = url;
+    link.style.display = 'none';
+    link.download = `${fileName}.xlsx`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  },
+
+  s2ab(s) {
+    const buf = new ArrayBuffer(s.length);
+    const view = new Uint8Array(buf);
+    for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+    return buf;
+  },
   },
 
   onShow() {
