@@ -2,7 +2,7 @@
   <div class="record-page">
     <!-- 提示框 -->
     <view class="info-box">
-      <text class="tips">记录均缓存在本地，切勿清理app缓存!!!否则数据丢失。</text>
+      <text class="tips">记录存在本地，切勿清理app缓存!!!否则数据丢失。</text>
     </view>
 
     <ul class="day-list">

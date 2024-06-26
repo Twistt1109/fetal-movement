@@ -22,7 +22,7 @@ export default {
 .info-box {
   background-color: #f0f8ff; /* 轻淡的蓝色背景 */
   border: 1px solid #b0c4de; /* 边框颜色与背景相称 */
-  padding: 20rpx; /* 内边距 */
+  padding: 15rpx 0; /* 内边距 */
   margin-bottom: 100rpx; /* 与后续元素的间距 */
   width: 100%; /* 占满父元素宽度 */
   text-align: center; /* 文字居中 */
