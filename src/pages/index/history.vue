@@ -154,11 +154,14 @@ export default {
 </script>
     
 <style scoped>
+
 .record-page {
   font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
+  background-color: var(--app-theme-color);
   padding: 30px;
   border-radius: 5px;
+  min-height: 100vh; /* 设置最小高度为视口高度，确保背景色覆盖整个视口 */
+  overflow-y: auto; /* 允许内容超过容器时出现垂直滚动条 */
 }
 
 .tips {
@@ -170,13 +173,13 @@ export default {
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 }
 
 .day-item {
   background-color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  border-radius: 20px;
   padding: 20px;
 }
 

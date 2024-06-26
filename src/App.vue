@@ -18,6 +18,10 @@ export default {
     height: 158rpx;
 }
 
+page {
+  --app-theme-color: #FDEDDA; /**主题色 */
+}
+
 /* 提示框 */
 .info-box {
   background-color: #f0f8ff; /* 轻淡的蓝色背景 */
