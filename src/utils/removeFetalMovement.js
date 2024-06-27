@@ -28,7 +28,7 @@ export async function removeFetalMovement(dayKey, timeKey, count) {
             for (const key of keysArray) {
                 if (key >= timeKey && num < count) {
                     console.log('删除',key);
-                    // delete dayRecords[key]
+                    delete dayRecords[key]
                     num++;
                 }
             }
