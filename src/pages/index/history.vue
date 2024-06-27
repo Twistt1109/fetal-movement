@@ -26,9 +26,19 @@
     </ul>
   </div>
 </template>
-    
-  <script>
+
+<script>
 import { loadFetalMovements } from "@/utils/loadFetalMovements";
+
+function parseTime(timeKey) {
+  // const hour = parseInt(timeKey.substring(0, 2), 10); // 取前两位作为小时
+  // const minute = parseInt(timeKey.substring(2), 10); // 取后两位作为分钟
+
+  // 以字符串形式处理可以保留前导零
+  const hour = timeKey.substring(0, 2).padStart(2, "0");
+  const minute = timeKey.substring(2).padStart(2, "0");
+  return { hour, minute };
+}
 
 export default {
   data() {
@@ -47,11 +57,7 @@ export default {
 
         result[day] = Object.entries(allRecords[day]).reduce(
           (acc, [timeKey, count]) => {
-            const hour = parseInt(timeKey.substring(0, 2), 10); // 取前两位作为小时
-            const minute = parseInt(timeKey.substring(2), 10); // 取后两位作为分钟
-
-            // const hour = timeKey.substring(0, 2).padStart(2, '0');
-            // const minute = timeKey.substring(2).padStart(2, '0');
+            const { hour, minute } = parseTime(timeKey);
 
             const currentTime = new Date(); // 创建当前时间对象
             currentTime.setHours(hour, minute, 0, 0); // 设置时间为指定的小时和分钟
@@ -89,14 +95,6 @@ export default {
 
       this.groupedRecords = result;
     },
-
-    // 将方法直接定义在 methods 对象中
-    formatTime(hourMinute) {
-      //   const [hour, minute] = hourMinute.split("").map(Number);
-      const hour = parseInt(hourMinute.substring(0, 2), 10); // 取前两位作为小时
-      const minute = parseInt(hourMinute.substring(2), 10); // 取后两位作为分钟
-      return `${hour}:${minute < 10 ? "0" : ""}${minute}`;
-    },
   },
 
   onShow() {
@@ -104,16 +102,17 @@ export default {
   },
 };
 </script>
-    
-<style scoped>
 
+<style scoped>
 .record-page {
   font-family: Arial, sans-serif;
   background-color: var(--app-theme-color);
   padding: 30px;
   border-radius: 5px;
-  min-height: 100vh; /* 设置最小高度为视口高度，确保背景色覆盖整个视口 */
-  overflow-y: auto; /* 允许内容超过容器时出现垂直滚动条 */
+  min-height: 100vh;
+  /* 设置最小高度为视口高度，确保背景色覆盖整个视口 */
+  overflow-y: auto;
+  /* 允许内容超过容器时出现垂直滚动条 */
 }
 
 .tips {
