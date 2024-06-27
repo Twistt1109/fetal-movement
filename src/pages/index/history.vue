@@ -20,6 +20,12 @@
           >
             <span class="time-label">{{ hourMinute }}: 起1小时内</span>
             <span class="count-value">{{ hourlyData.count }} 次</span>
+            <i
+              class="delete-icon"
+              @click="confirmDelete(day, hourMinute, hourlyData.count)"
+            >
+              X
+            </i>
           </li>
         </ul>
       </li>
@@ -29,14 +35,15 @@
 
 <script>
 import { loadFetalMovements } from "@/utils/loadFetalMovements";
+import { removeFetalMovement } from "@/utils/removeFetalMovement";
 
 function parseTime(timeKey) {
-  const hour = parseInt(timeKey.substring(0, 2), 10); // 取前两位作为小时
-  const minute = parseInt(timeKey.substring(2), 10); // 取后两位作为分钟
+  // const hour = parseInt(timeKey.substring(0, 2), 10); // 取前两位作为小时
+  // const minute = parseInt(timeKey.substring(2), 10); // 取后两位作为分钟
 
   // 以字符串形式处理可以保留前导零
-  // const hour = timeKey.substring(0, 2).padStart(2, "0");
-  // const minute = timeKey.substring(2).padStart(2, "0");
+  const hour = timeKey.substring(0, 2).padStart(2, "0");
+  const minute = timeKey.substring(2).padStart(2, "0");
   return { hour, minute };
 }
 
@@ -49,6 +56,14 @@ export default {
 
   methods: {
     getData() {
+      // allRecords = [
+      //     '2024-06-27' = [
+      //         ['0958', 2],
+      //         ['0959', 2]
+      //         ['1003', 1],
+      //         ['1011', 1],
+      //     ]
+      // ]
       const allRecords = loadFetalMovements();
       const result = {};
 
@@ -75,8 +90,14 @@ export default {
               previousTime = currentTime; // 更新previousTime
             }
 
-            // 获取上一个时间分组
-            const oldGroup = `${previousTime.getHours()}:${previousTime.getMinutes()}`;
+            // 获取上一个时间分组, 保留前导零
+            const oldGroup = `${previousTime
+              .getHours()
+              .toString()
+              .padStart(2, "0")}:${previousTime
+              .getMinutes()
+              .toString()
+              .padStart(2, "0")}`;
 
             if (!acc[oldGroup]) acc[oldGroup] = { count: 0 };
             acc[oldGroup].count += count;
@@ -91,6 +112,38 @@ export default {
       }
 
       this.groupedRecords = result;
+    },
+
+    confirmDelete(day, hourMinute, count) {
+      // 弹出确认框询问是否删除
+      uni.showModal({
+        title: "确认删除",
+        content: "要删除 " + day + " " + hourMinute + " 记录吗？",
+        success: (res) => {
+          if (res.confirm) {
+            // 用户点击了确认，执行删除操作
+            this.deleteRecord(day, hourMinute, count);
+          } else if (res.cancel) {
+            // 用户点击了取消，不做任何操作
+            console.log("用户取消了删除操作");
+          }
+        },
+      });
+    },
+
+    deleteRecord(day, hourMinute, count) {
+      // 删除指定日期的指定时间段的记录
+      if (this.groupedRecords[day] && this.groupedRecords[day][hourMinute]) {
+        delete this.groupedRecords[day][hourMinute];
+        removeFetalMovement(day, hourMinute, count);
+        // 如果某天的记录为空对象，则删除该天对象
+        if (Object.keys(this.groupedRecords[day]).length === 0) {
+          delete this.groupedRecords[day];
+          removeFetalMovement(day, null, 0);
+        }
+      } else {
+        console.log("没找到记录");
+      }
     },
   },
 
@@ -146,6 +199,7 @@ export default {
 }
 
 .hourly-item {
+  margin-bottom: 10rpx;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -161,5 +215,10 @@ export default {
 .count-value {
   font-weight: bold;
   color: #007bff;
+}
+
+.delete-icon {
+  cursor: pointer;
+  /* 在这里添加您想要的图标样式，例如使用背景图像、字体图标等 */
 }
 </style>
