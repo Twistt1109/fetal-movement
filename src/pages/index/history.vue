@@ -31,12 +31,12 @@
 import { loadFetalMovements } from "@/utils/loadFetalMovements";
 
 function parseTime(timeKey) {
-  // const hour = parseInt(timeKey.substring(0, 2), 10); // 取前两位作为小时
-  // const minute = parseInt(timeKey.substring(2), 10); // 取后两位作为分钟
+  const hour = parseInt(timeKey.substring(0, 2), 10); // 取前两位作为小时
+  const minute = parseInt(timeKey.substring(2), 10); // 取后两位作为分钟
 
   // 以字符串形式处理可以保留前导零
-  const hour = timeKey.substring(0, 2).padStart(2, "0");
-  const minute = timeKey.substring(2).padStart(2, "0");
+  // const hour = timeKey.substring(0, 2).padStart(2, "0");
+  // const minute = timeKey.substring(2).padStart(2, "0");
   return { hour, minute };
 }
 
@@ -55,42 +55,39 @@ export default {
       for (const day in allRecords) {
         let previousTime = null; // 用来存储上一个时间记录
 
-        result[day] = Object.entries(allRecords[day]).reduce(
-          (acc, [timeKey, count]) => {
-            const { hour, minute } = parseTime(timeKey);
+        result[day] = allRecords[day].reduce((acc, [timeKey, count]) => {
+          const { hour, minute } = parseTime(timeKey);
 
-            const currentTime = new Date(); // 创建当前时间对象
-            currentTime.setHours(hour, minute, 0, 0); // 设置时间为指定的小时和分钟
+          const currentTime = new Date(); // 创建当前时间对象
+          currentTime.setHours(hour, minute, 0, 0); // 设置时间为指定的小时和分钟
 
-            // 计算与上一个时间的差值（以分钟为单位）
-            const timeDifference = previousTime
-              ? Math.abs((currentTime - previousTime) / (1000 * 60)) // 时间差转换为分钟
-              : null;
+          // 计算与上一个时间的差值（以分钟为单位）
+          const timeDifference = previousTime
+            ? Math.abs((currentTime - previousTime) / (1000 * 60)) // 时间差转换为分钟
+            : null;
 
-            // 如果是第一个时间记录，或者时间差在60分钟内
-            if (
-              !previousTime ||
-              (timeDifference !== null && timeDifference <= 60)
-            ) {
-              if (!previousTime) {
-                previousTime = currentTime; // 更新previousTime
-              }
-
-              // 获取上一个时间分组
-              const oldGroup = `${previousTime.getHours()}:${previousTime.getMinutes()}`;
-
-              if (!acc[oldGroup]) acc[oldGroup] = { count: 0 };
-              acc[oldGroup].count += count;
-            } else {
-              // 否则，开始一个新的hourGroup
-              const hourGroup = `${hour}:${minute}`;
-              previousTime = currentTime;
-              acc[hourGroup] = { count: count };
+          // 如果是第一个时间记录，或者时间差在60分钟内
+          if (
+            !previousTime ||
+            (timeDifference !== null && timeDifference <= 60)
+          ) {
+            if (!previousTime) {
+              previousTime = currentTime; // 更新previousTime
             }
-            return acc;
-          },
-          {}
-        );
+
+            // 获取上一个时间分组
+            const oldGroup = `${previousTime.getHours()}:${previousTime.getMinutes()}`;
+
+            if (!acc[oldGroup]) acc[oldGroup] = { count: 0 };
+            acc[oldGroup].count += count;
+          } else {
+            // 否则，开始一个新的hourGroup
+            const hourGroup = `${hour}:${minute}`;
+            previousTime = currentTime;
+            acc[hourGroup] = { count: count };
+          }
+          return acc;
+        }, {});
       }
 
       this.groupedRecords = result;

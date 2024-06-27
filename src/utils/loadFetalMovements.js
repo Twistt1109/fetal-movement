@@ -1,16 +1,32 @@
 export function loadFetalMovements() {
     // 初始化结果对象
-    let allRecords = {};
+    let allRecords = [];
 
     // 遍历所有可能的日期键（这里简化处理，未限制日期范围）
     for (let i = 0; i <= 120; i++) { // 假定查看最近120天的记录
         const dateKey = getDateString(new Date(Date.now() - i * 24 * 60 * 60 * 1000));
         const recordsForDay = uni.getStorageSync(dateKey);
         if (recordsForDay) {
-            allRecords[dateKey] = recordsForDay;
+            let recordsArray = Object.entries(recordsForDay);
+            // recordsArray = [
+            //     ['1003', 1],
+            //     ['1011', 1],
+            //     ['0958', 2],
+            //     ['0959', 2],
+            // ];
+            recordsArray.sort((a, b) => a[0].localeCompare(b[0]));
+            allRecords[dateKey] = recordsArray
         }
     }
 
+    // [
+    //     '2024-06-27' = [
+    //         ['0958', 2],
+    //         ['0959', 2]
+    //         ['1003', 1],
+    //         ['1011', 1],
+    //     ]
+    // ]
     return allRecords;
 }
 
