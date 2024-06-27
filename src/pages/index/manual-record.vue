@@ -94,7 +94,7 @@ export default {
 
     const twistClicked = () => {
       uni.navigateTo({
-        url: "/pages/index/webview",
+        url: "webview",
       });
     };
 
@@ -147,6 +147,7 @@ export default {
   border: 1px solid #ccc;
   padding: 0 20rpx;
   flex-grow: 1; /* 让 picker 占据剩余空间 */
+  width: 200rpx;
 }
 
 .view-for-slider {
@@ -170,7 +171,7 @@ export default {
 }
 
 .powered-by-container {
-  margin-top: 200rpx; /* 根据需要调整间距 */
+  margin-top: 220rpx; /* 根据需要调整间距 */
   display: flex; /* 使用Flex布局来确保元素在同一行显示 */
   align-items: center; /* 垂直居中 */
   justify-content: center; /* 水平居中 */
