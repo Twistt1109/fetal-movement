@@ -157,7 +157,7 @@ export default {
 .record-page {
   font-family: Arial, sans-serif;
   background-color: var(--app-theme-color);
-  padding: 30px;
+  padding: 20px;
   border-radius: 5px;
   min-height: 100vh;
   /* 设置最小高度为视口高度，确保背景色覆盖整个视口 */
@@ -181,7 +181,7 @@ export default {
   background-color: white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  padding: 20px;
+  padding: 15px;
 }
 
 .day-title {
@@ -209,7 +209,7 @@ export default {
 
 .time-label {
   text-align: left;
-  width: 200px;
+  width: 160px;
 }
 
 .count-value {
